@@ -140,6 +140,14 @@ class JohnConnor:
             self.state = "eliminated"
             return self.position
 
+        current_terrain = self.environment.get_terrain(
+            *self.position
+        )
+
+        if current_terrain == "safe" and self.detected_threat is None:
+            self.state = "safe"
+            return self.position
+
         if self.detected_threat is not None:
             self.state = "evading"
             return self.choose_evasion_move()
